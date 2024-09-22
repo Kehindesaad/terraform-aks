@@ -57,5 +57,5 @@ jobs:
         kubectl get svc python-app -n my-python-app -o jsonpath='{.status.loadBalancer.ingress[0].ip}'
 
     # Step 9: Output the app's public endpoint
-    - name: Show App Endpoint
-      run: echo "App available at: http://$(kubectl get svc python-app -n my-python-app -o jsonpath='{.status.loadBalancer.ingress[0].ip}')"
+    # - name: Show App Endpoint
+    #   run: echo "App available at: http://$(kubectl get svc python-app -n my-python-app -o jsonpath='{.status.loadBalancer.ingress[0].ip}')"
