@@ -39,7 +39,7 @@ jobs:
 
     # Step 4: Build Docker image for Python app
     - name: Build Docker Image
-      run: docker build -t ${{ secrets.ACR_NAME }}.azurecr.io/python-app:latest .
+      run: docker build -t python-app:latest -f ./python-app . #${{ secrets.ACR_NAME }}.azurecr.io/python-app:latest .
 
     # Step 5: Log in to Azure Container Registry (ACR)
     - name: ACR Login
