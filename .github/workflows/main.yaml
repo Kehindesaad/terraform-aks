@@ -1,0 +1,61 @@
+name: CI/CD Pipeline for Python App on Azure
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step 1: Checkout the code
+    - name: Checkout Code
+      uses: actions/checkout@v2
+
+    # Step 2: Set up Azure CLI
+    - name: Azure CLI Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    # Step 3: Initialize Terraform and apply the infrastructure only (ACR, AKS)
+    - name: Initialize Terraform
+      working-directory: ./terraform
+      run: terraform init
+
+    - name: Apply Terraform (Infrastructure Only)
+      working-directory: ./terraform
+      run: terraform apply -target=azurerm_container_registry.acr -auto-approve
+
+    # Step 4: Build Docker image for Python app
+    - name: Build Docker Image
+      run: docker build -t ${{ secrets.ACR_NAME }}.azurecr.io/python-app:latest .
+
+    # Step 5: Log in to Azure Container Registry (ACR)
+    - name: ACR Login
+      run: |
+        az acr login --name ${{ secrets.ACR_NAME }}
+
+    # Step 6: Push Docker image to ACR
+    - name: Push Docker Image
+      run: docker push ${{ secrets.ACR_NAME }}.azurecr.io/python-app:latest
+
+    # Step 7: Apply Terraform again for Kubernetes resources (Deployment, Service, Istio)
+    - name: Apply Terraform (Kubernetes Resources)
+      working-directory: ./terraform
+      run: terraform apply -auto-approve
+
+    # Step 8: Get External IP of the service (from Istio Gateway or LoadBalancer service)
+    - name: Get External IP
+      run: |
+        sleep 30  # Wait for service IP to be provisioned
+        kubectl get svc python-app -n my-python-app -o jsonpath='{.status.loadBalancer.ingress[0].ip}'
+
+    # Step 9: Output the app's public endpoint
+    - name: Show App Endpoint
+      run: echo "App available at: http://$(kubectl get svc python-app -n my-python-app -o jsonpath='{.status.loadBalancer.ingress[0].ip}')"
