@@ -12,7 +12,7 @@ jobs:
     steps:
     # Step 1: Checkout the code
     - name: Checkout Code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     # Step 2: Set up Azure CLI
     - name: Azure CLI Login
@@ -54,6 +54,7 @@ jobs:
         kubectl get svc python-app -n my-python-app -o jsonpath='{.status.loadBalancer.ingress[0].ip}'
 
     # Step 9: Output the application's public endpoint
-   - name: Show App Endpoint
-     run: |
-      echo "App available at: http://$(kubectl get svc python-app -n my-python-app -o jsonpath='{.status.loadBalancer.ingress[0].ip}')"
+    - name: Show App Endpoint
+      run: |
+        APP_IP=$(kubectl get svc python-app -n my-python-app -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
+        echo "App available at: http://$APP_IP"
