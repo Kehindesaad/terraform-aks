@@ -1,13 +1,13 @@
 # main.tf
 module "networking" {
-  source = "terraform/network"
+  source = "./terraform/network"
   resource_group_name = var.resource_group_name
   location = var.location
   aks_subnet_id = module.networking.aks_subnet_id
 }
 
 module "aks" {
-  source = "terraform/aks"
+  source = "./terraform/aks"
   aks_subnet_id = module.networking.aks_subnet_id
   resource_group_name = var.resource_group_name
   location = var.location
@@ -15,7 +15,7 @@ module "aks" {
 
 
 module "storage" {
-  source = "terraform/storage"
+  source = "./terraform/storage"
   resource_group_name = var.resource_group_name
   location = var.location
 }
