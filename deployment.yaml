@@ -16,7 +16,7 @@ spec:
       - name: python-app1
         image: saadudeenregistry247.azurecr.io/python-app1:latest
         ports:
-        - containerPort: 80
+        - containerPort: 8000
         resources:
           requests:
             cpu: 100m
@@ -36,5 +36,5 @@ spec:
   ports:
     - protocol: "TCP"
       port: 80
-      targetPort: 80
+      targetPort: 8000
   type: LoadBalancer

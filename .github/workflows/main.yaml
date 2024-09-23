@@ -75,8 +75,8 @@ jobs:
         # kubectl create namespace my-python-app || echo "Namespace already exists"
         kubectl get service python-app-service1
 
-    # Step 9: Output the application's public endpoint
-    - name: Show App Endpoint
-      run: |
-        APP_IP=$('kubectl get service python-app-service1')
-        echo "App available at: http://$APP_IP"
+    # # Step 9: Output the application's public endpoint
+    # - name: Show App Endpoint
+    #   run: |
+    #     APP_IP=$('kubectl get service python-app-service1')
+    #     echo "App available at: http://$APP_IP"
