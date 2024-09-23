@@ -20,13 +20,6 @@ module "storage" {
   location = var.location
 }
 
-module "istio" {
-  source = "./istio"
-}
-
-output "kube_config" {
-  value = "azurerm_kubernetes_cluster.aks-istio-cluster.kube_config[0]"
-}
 
 
 
