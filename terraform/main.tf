@@ -20,5 +20,9 @@ module "storage" {
   location = var.location
 }
 
+module "istio" {
+  source = "./istio"
+}
+
 
 
