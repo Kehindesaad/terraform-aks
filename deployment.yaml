@@ -6,15 +6,15 @@ spec:
   replicas: 3
   selector:
     matchLabels:
-      app: python-app
+      app: python-app1
   template:
     metadata:
       labels:
-        app: python-app
+        app: python-app1
     spec:
       containers:
-      - name: python-app
-        image: ${{ secrets.ACR_NAME }}.azurecr.io/python-app:latest
+      - name: python-app1
+        image: python-app1:latest
         ports:
         - containerPort: 80
         resources:
@@ -32,7 +32,7 @@ metadata:
   name: python-app-service
 spec:
   selector:
-    app: python-app
+    app: python-app1
   ports:
     - protocol: "TCP"
       port: 80
