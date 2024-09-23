@@ -29,7 +29,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: python-app-service
+  name: python-app-service1
 spec:
   selector:
     app: python-app1
