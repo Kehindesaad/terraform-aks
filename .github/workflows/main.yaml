@@ -66,6 +66,9 @@ jobs:
       run: |
         az aks get-credentials --resource-group ${{ secrets.AKS_RESOURCE_GROUP }} --name ${{ secrets.AKS_CLUSTER_NAME }} --overwrite-existing
 
+    - name: Verify Kubernetes Context
+      run: kubectl config current-context    
+
     - name: Get External IP
       run: |
         sleep 30  # Wait for service IP to be provisioned
