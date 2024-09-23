@@ -1,10 +1,3 @@
-resource "kubernetes_namespace" "my_python_app" {
-  metadata {
-    name = "my-python-app"
-  }
-}
-
-
 resource "kubernetes_manifest" "istio_gateway" {
   manifest = {
     apiVersion = "networking.istio.io/v1alpha3"
