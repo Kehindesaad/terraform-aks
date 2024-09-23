@@ -49,7 +49,7 @@ jobs:
 
     # Step 6: Push Docker image to ACR
     - name: Push Docker Image
-      run: docker build -t ${{ secrets.ACR_NAME }}.azurecr.io/python-app:latest .
+      run: docker push ${{ secrets.ACR_NAME }}.azurecr.io/python-app:latest
 
     # Step 7: Apply Terraform again for Kubernetes resources (Deployment, Service, Istio)
     - name: Apply Terraform (Kubernetes Resources)
