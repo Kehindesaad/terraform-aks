@@ -43,7 +43,7 @@ resource "kubernetes_manifest" "istio_virtualservice" {
           destination = {
             host = "python-app.default.svc.cluster.local"
             port = {
-              number = 8000
+              number = 80
             }
           }
         }]
