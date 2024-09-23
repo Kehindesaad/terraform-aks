@@ -51,6 +51,11 @@ jobs:
     - name: Push Docker Image
       run: docker push ${{ secrets.ACR_NAME }}.azurecr.io/python-app:latest
 
+    # Step 8: Create the Namespace if it doesn't exist
+    - name: Create Namespace
+      run: |
+        kubectl create namespace my-python-app || echo "Namespace already exists"  
+
     # Step 7: Apply Terraform again for Kubernetes resources (Deployment, Service, Istio)
     - name: Apply Terraform (Kubernetes Resources)
       working-directory: ./terraform
