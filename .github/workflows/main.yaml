@@ -72,6 +72,7 @@ jobs:
     - name: Get External IP
       run: |
         sleep 30  # Wait for service IP to be provisioned
+        kubectl create namespace my-python-app || echo "Namespace already exists"
         kubectl get svc python-app -n my-python-app -o jsonpath='{.status.loadBalancer.ingress[0].ip}'
 
     # Step 9: Output the application's public endpoint
