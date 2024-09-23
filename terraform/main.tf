@@ -22,6 +22,8 @@ module "storage" {
 
 module "istio" {
   source = "./istio"
+  
+  kube_config = azurerm_kubernetes_cluster.aks-istio-cluster.kube_config[0]
 }
 
 
