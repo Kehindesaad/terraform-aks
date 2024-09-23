@@ -61,8 +61,8 @@ jobs:
       run: |
         az aks get-credentials --resource-group ${{ secrets.AKS_RESOURCE_GROUP }} --name ${{ secrets.AKS_CLUSTER_NAME }} --overwrite-existing
 
-    - name: Verify Kubernetes Context
-      run: kubectl config current-context
+    # - name: Verify Kubernetes Context
+    #   run: kubectl config current-context
 
     - name: Deploy to AKS
       run: kubectl apply -f ./deployment.yaml  
