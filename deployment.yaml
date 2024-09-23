@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: python-app1
-        image: python-app1:latest
+        image: saadudeenregistry247.azurecr.io/python-app1:latest
         ports:
         - containerPort: 80
         resources:
