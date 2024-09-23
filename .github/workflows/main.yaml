@@ -49,34 +49,34 @@ jobs:
 
     # Step 6: Push Docker image to ACR
     - name: Push Docker Image
-      run: docker push ${{ secrets.ACR_NAME }}.azurecr.io/python-app:latest
-
-    # # Step 8: Create the Namespace if it doesn't exist
-    # - name: Create Namespace
-    #   run: |
-    #     kubectl create namespace my-python-app || echo "Namespace already exists"  
+      run: docker push ${{ secrets.ACR_NAME }}.azurecr.io/python-app:latest  
 
     # Step 7: Apply Terraform again for Kubernetes resources (Deployment, Service, Istio)
     - name: Apply Terraform (Kubernetes Resources)
       working-directory: ./terraform
       run: terraform apply -auto-approve
 
-    # Step 8: Get External IP of the service (from Istio Gateway or LoadBalancer service)
+    # Step 8: Get External IP of the service (LoadBalancer service)
     - name: Get AKS Credentials
       run: |
         az aks get-credentials --resource-group ${{ secrets.AKS_RESOURCE_GROUP }} --name ${{ secrets.AKS_CLUSTER_NAME }} --overwrite-existing
 
     - name: Verify Kubernetes Context
-      run: kubectl config current-context    
+      run: kubectl config current-context
+
+    - name: Deploy to AKS
+      run: kubectl apply -f ./deployment.yaml  
+
+ 
 
     - name: Get External IP
       run: |
         sleep 30  # Wait for service IP to be provisioned
         # kubectl create namespace my-python-app || echo "Namespace already exists"
-        kubectl get svc python-app -n my-python-app -o jsonpath='{.status.loadBalancer.ingress[0].ip}'
+        kubectl get service python-app-service
 
     # Step 9: Output the application's public endpoint
     - name: Show App Endpoint
       run: |
-        APP_IP=$(kubectl get svc python-app -n my-python-app -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
+        APP_IP=$(kubectl get service python-app-service)
         echo "App available at: http://$APP_IP"
