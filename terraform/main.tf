@@ -25,7 +25,7 @@ module "istio" {
 }
 
 output "kube_config" {
-  value = azurerm_kubernetes_cluster.aks-istio-cluster.kube_config[0]
+  value = "azurerm_kubernetes_cluster.aks-istio-cluster.kube_config[0]"
 }
 
 
