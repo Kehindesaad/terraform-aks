@@ -38,10 +38,9 @@ jobs:
       run: terraform apply -auto-approve #-target=azurerm_container_registry.acr -auto-approve
 
     # Step 4: Build Docker image for Python app
-    - name: Build and push image to ACR
+    - name: Build image
       run: |
         docker build -t ${{ secrets.ACR_NAME }}.azurecr.io/python-app:latest -f ./python-app/Dockerfile .
-        docker push ${{ secrets.ACR_NAME }}.azurecr.io/python-app:latest
 
     # Step 5: Log in to Azure Container Registry (ACR)
     - name: ACR Login
