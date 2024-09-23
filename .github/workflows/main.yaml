@@ -57,6 +57,10 @@ jobs:
       run: terraform apply -auto-approve
 
     # Step 8: Get External IP of the service (from Istio Gateway or LoadBalancer service)
+    - name: Get AKS Credentials
+      run: |
+        az aks get-credentials --resource-group ${{ secrets.AKS_RESOURCE_GROUP }} --name ${{ secrets.AKS_CLUSTER_NAME }} --overwrite-existing
+
     - name: Get External IP
       run: |
         sleep 30  # Wait for service IP to be provisioned
