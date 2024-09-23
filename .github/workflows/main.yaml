@@ -35,7 +35,7 @@ jobs:
 
     - name: Apply Terraform (Infrastructure Only)
       working-directory: ./terraform
-      run: terraform apply #-target=azurerm_container_registry.acr -auto-approve
+      run: terraform apply -auto-approve #-target=azurerm_container_registry.acr -auto-approve
 
     # Step 4: Build Docker image for Python app
     - name: Build Docker Image
