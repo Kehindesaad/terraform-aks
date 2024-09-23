@@ -1,6 +1,6 @@
-provider "helm" {
+# provider "helm" {
   
-}
+# }
 
 resource "helm_release" "istio_base" {
   name       = "istio-base"
