@@ -51,12 +51,7 @@ jobs:
     - name: Push Docker Image
       run: docker push saadudeenregistry247.azurecr.io/python-app1:latest  
 
-    # Step 7: Apply Terraform again for Kubernetes resources (Deployment, Service, Istio)
-    - name: Apply Terraform (Kubernetes Resources)
-      working-directory: ./terraform
-      run: terraform apply -auto-approve
-
-    # Step 8: Get External IP of the service (LoadBalancer service)
+    # Step 7: Get External IP of the service (LoadBalancer service)
     - name: Get AKS Credentials
       run: |
         az aks get-credentials --resource-group ${{ secrets.AKS_RESOURCE_GROUP }} --name ${{ secrets.AKS_CLUSTER_NAME }} --overwrite-existing
