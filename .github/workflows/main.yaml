@@ -35,12 +35,12 @@ jobs:
 
     - name: Apply Terraform (Infrastructure Only)
       working-directory: ./terraform
-      run: terraform apply -auto-approve #-target=azurerm_container_registry.acr -auto-approve
+      run: terraform apply -auto-approve 
 
     # Step 4: Build Docker image for Python app
     - name: Build image
       run: |
-        docker build -t saadudeenregistry247.azurecr.io/python-app1:latest -f ./python-app/Dockerfile .
+        docker build -t saadudeenregistry247.azurecr.io/python-app1:latest -f ./my-app/Dockerfile .
 
     # Step 5: Log in to Azure Container Registry (ACR)
     - name: ACR Login
@@ -54,11 +54,10 @@ jobs:
     # Step 7: Get External IP of the service (LoadBalancer service)
     - name: Get AKS Credentials
       run: |
-        az aks get-credentials --resource-group ${{ secrets.AKS_RESOURCE_GROUP }} --name ${{ secrets.AKS_CLUSTER_NAME }} --overwrite-existing
+        az aks get-credentials --resource-group aksRG --name aks-istio-cluster --overwrite-existing
 
     # - name: Verify Kubernetes Context
     #   run: kubectl config current-context
-
     - name: Deploy to AKS
       run: kubectl apply -f ./deployment.yaml  
 
@@ -69,9 +68,3 @@ jobs:
         sleep 30  # Wait for service IP to be provisioned
         # kubectl create namespace my-python-app || echo "Namespace already exists"
         kubectl get service python-app-service1
-
-    # # Step 9: Output the application's public endpoint
-    # - name: Show App Endpoint
-    #   run: |
-    #     APP_IP=$('kubectl get service python-app-service1')
-    #     echo "App available at: http://$APP_IP"
