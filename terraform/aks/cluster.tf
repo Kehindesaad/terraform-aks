@@ -8,10 +8,11 @@ resource "azurerm_kubernetes_cluster" "aks-istio-cluster" {
   default_node_pool {
     name       = "agentpool"
     node_count = 1
-    auto_scaling_enabled = true 
+    auto_scaling_enabled = true
+    type = "VirtualMachineScaleSets" 
     min_count           = 1         
     max_count           = 2        
-    vm_size    = "standard_d16ps_v5"
+    vm_size             = "Standard_DC2s_v2"
     vnet_subnet_id = var.aks_subnet_id
   }
   network_profile {

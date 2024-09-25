@@ -2,7 +2,7 @@
 variable "resource_group_name" {
   description = "AKS-RG"
   type        = string
-  default     = "AKS-RG"
+  default     = "aksRG"
 }
 
 variable "location" {
