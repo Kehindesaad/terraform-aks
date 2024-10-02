@@ -125,7 +125,7 @@ In your GitHub repository, go to **Settings** → **Secrets** and add the follow
 - `AKS_RESOURCE_GROUP`: The resource group where your AKS cluster is deployed.
 - `AKS_CLUSTER_NAME`: Your AKS cluster name.
 
-### **2.1 Application Manifests **
+### ** 2.1 Application Manifests **
 Your Kubernetes manifest files can be located in the `TERRAFORM-AKS` directory.
 
 Example deployment file (`TERRAFORM-AKS/deployment.yaml`):
