@@ -3,6 +3,11 @@
 ## **Overview**
 This guide walks through the steps of deploying an application to **Azure Kubernetes Service (AKS)**. We’ll use **Terraform** to build the infrastructure and **GitHub Actions** to automate the deployment process.
 
+
+## **ARCHITECTURE**
+![Alt text](./Images/AKS.drawio.png)
+
+
 ## **Prerequisites**
 Ensure the following are in place:
 
